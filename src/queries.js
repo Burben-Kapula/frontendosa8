@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client'
+import { gql } from '@apollo/client/core'
 
 export const ALL_AUTHORS = gql`
   query {
@@ -11,7 +11,28 @@ export const ALL_AUTHORS = gql`
   }
 `
 
-// ПЕРЕВІРТЕ ЦІ ДВА ЕКСПОРТИ:
+export const ALL_BOOKS = gql`
+  query {
+    allBooks {
+      title
+      author {
+        name
+      }
+      published
+      id
+    }
+  }
+`
+
+// ДОДАЙ ЦЕЙ ЕКСПОРТ (Його не було в твоєму коді)
+export const LOGIN = gql`
+  mutation login($username: String!, $password: String!) {
+    login(username: $username, password: $password) {
+      value
+    }
+  }
+`
+
 export const CREATE_BOOK = gql`
   mutation createBook($title: String!, $author: String!, $published: Int!, $genres: [String!]!) {
     addBook(
@@ -21,7 +42,9 @@ export const CREATE_BOOK = gql`
       genres: $genres
     ) {
       title
-      author
+      author {
+        name
+      }
       id
     }
   }
@@ -32,18 +55,6 @@ export const EDIT_AUTHOR = gql`
     editAuthor(name: $name, setBornTo: $setBornTo) {
       name
       born
-      id
-    }
-  }
-`
-
-// Також перевірте ALL_BOOKS, якщо ви його використовуєте
-export const ALL_BOOKS = gql`
-  query {
-    allBooks {
-      title
-      author
-      published
       id
     }
   }
