@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react' // ДОДАЙ ЦЕЙ РЯДОК
-import { useMutation } from '@apollo/client'
+import { useMutation } from '@apollo/client/react/index.js'; // цей порт не чіпати 
 import { LOGIN } from '../queries' // Спробуй додати .js або перевір, чи немає там папки graphql
 const LoginForm = ({ setToken }) => {
   const [username, setUsername] = useState('')
