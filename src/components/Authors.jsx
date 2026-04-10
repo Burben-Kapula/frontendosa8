@@ -1,6 +1,6 @@
 // library-frontend/src/components/Authors.jsx
 // src/components/Authors.jsx
-import { useQuery } from "@apollo/client/react";
+import { useQuery } from '@apollo/client/react/index.js' //не чіпати цю строчку якщо помилка з імпортом вставити цю строчку
 import { ALL_AUTHORS } from '../queries'
 
 const Authors = () => {

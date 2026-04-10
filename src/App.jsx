@@ -3,8 +3,15 @@ import LoginForm from './components/LoginForm'
 import { ALL_BOOKS } from './queries' 
 import { useQuery } from '@apollo/client/react'
 import { useApolloClient } from '@apollo/client/react'
+
+//компоненти
+import NewBook from './components/NewBook' // Назва файлу без .jsx
+import Books from './components/Books' // Назва файлу без .jsx
+import Authors from './components/Authors' // Назва файлу без .jsx
+
 const App = () => {
   // 1. Стан токена (зчитуємо з localStorage при першому рендері)
+  const [page, setPage] = useState('authors') // за замовчуванням показуємо авторів
   const [token, setToken] = useState(() => 
     localStorage.getItem('phonenumbers-user-token')
   )
@@ -46,25 +53,48 @@ const App = () => {
   // 7. Основний контент для авторизованого користувача
   return (
     <div>
-      <nav style={{ marginBottom: '10px', borderBottom: '1px solid #ccc', padding: '5px' }}>
-        <button onClick={() => console.log('Show Authors')}>Authors</button>
-        <button onClick={() => console.log('Show Books')}>Books</button>
-        <button onClick={() => console.log('Show Add Book')}>Add Book</button>
-        <button onClick={logout} style={{ marginLeft: '20px', color: 'red' }}>Logout</button>
-      </nav>
-
-      <h1>Library App</h1>
-      
+  
       <div>
-        <h3>Books in database:</h3>
-        <ul>
-          {result.data.allBooks.map(b => (
-            <li key={b.id}>
-              <strong>{b.title}</strong> by {b.author.name} ({b.published})
-            </li>
-          ))}
-        </ul>
-      </div>
+          <nav>
+            <button onClick={() => setPage('authors')}>Authors</button>
+            <button onClick={() => setPage('books')}>Books</button>
+            <button onClick={() => setPage('add')}>Add Book</button>
+            <button onClick={logout}>Logout</button>
+          </nav>
+
+          <h1>Library App</h1>
+
+          {/* Рендеримо ТІЛЬКИ компоненти. Вони самі знають, що показувати */}
+          {page === 'authors' && <Authors />} 
+          {page === 'books' && <Books />}
+          {page === 'add' && <NewBook />}
+        </div>
+
+      
+      {/* Навігація залишається зверху */}
+
+
+      {page === 'authors' && (
+        <div>
+          {/* Тут буде твій список авторів */}
+        </div>
+      )}
+
+      {page === 'books' && (
+        <div>
+          <ul>
+            {result.data.allBooks.map(b => (
+              <li key={b.id}><strong>{b.title}</strong> by {b.author.name}</li>
+            ))}
+          </ul>
+        </div>
+      )}
+
+      {page === 'add' && (
+        <div>
+          {/* Тут буде твоя форма додавання книги */}
+        </div>
+      )}
     </div>
   )
 }

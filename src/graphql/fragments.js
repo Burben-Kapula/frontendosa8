@@ -1,4 +1,3 @@
-// src/graphql/fragments.js
 import { gql } from '@apollo/client'
 
 export const BOOK_DETAILS = gql`
@@ -6,9 +5,9 @@ export const BOOK_DETAILS = gql`
     id
     title
     published
-    genres
     author {
       name
     }
+    genres  # ДОДАЙ ЦЕЙ РЯДОК
   }
 `
