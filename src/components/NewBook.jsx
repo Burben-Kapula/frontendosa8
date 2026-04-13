@@ -9,7 +9,16 @@ const NewBook = () => {
   const [published, setPublished] = useState('')
   const [genre, setGenre] = useState('')
   const [genres, setGenres] = useState([])
-
+  const [ addBook ] = useMutation(CREATE_BOOK, {
+  refetchQueries: [ 
+    { query: ALL_BOOKS, variables: { genre: null } }, // Оновити "all genres"
+    // Якщо ви хочете бути дуже прискіпливими, можна додати запит ME, 
+    // але зазвичай достатньо оновлення загального списку
+  ],
+  onError: (error) => {
+    console.log(error.graphQLErrors[0].message)
+  }
+})
   const [createBook] = useMutation(CREATE_BOOK, {
     refetchQueries: [
       { query: ALL_BOOKS },

@@ -8,7 +8,7 @@ import { useApolloClient } from '@apollo/client/react'
 import NewBook from './components/NewBook' // Назва файлу без .jsx
 import Books from './components/Books' // Назва файлу без .jsx
 import Authors from './components/Authors' // Назва файлу без .jsx
-
+import Recommendations from './components/Recommendations' // Новий компонент
 const App = () => {
   // 1. Стан токена (зчитуємо з localStorage при першому рендері)
   const [page, setPage] = useState('authors') // за замовчуванням показуємо авторів
@@ -59,6 +59,7 @@ const App = () => {
             <button onClick={() => setPage('authors')}>Authors</button>
             <button onClick={() => setPage('books')}>Books</button>
             <button onClick={() => setPage('add')}>Add Book</button>
+            <button onClick={() => setPage('recommend')}>recommend</button>            
             <button onClick={logout}>Logout</button>
           </nav>
 
@@ -68,6 +69,8 @@ const App = () => {
           {page === 'authors' && <Authors />} 
           {page === 'books' && <Books />}
           {page === 'add' && <NewBook />}
+          {/* Нова сторінка рекомендацій */}
+          {page === 'recommend' && <Recommendations />}
         </div>
 
       
